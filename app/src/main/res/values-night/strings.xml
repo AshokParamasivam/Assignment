@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Beer Catalogue</string>
+    <string name="first_brewed_date">First brewed date</string>
+    <string name="description">Description</string>
+    <string name="food_pair">Food Pair</string>
+    <string name="brewers_tip">Brewers Tip</string>
+</resources>
