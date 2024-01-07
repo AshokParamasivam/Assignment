@@ -24,7 +24,6 @@ class BeerListFragment : Fragment() {
 
     private lateinit var binding: FragmentBeerListBinding
     private lateinit var beerViewModel: BeerViewModel
-    private var TAG = "BeerList"
     private var beerActivityAction: BeerActivityAction? = null
 
     override fun onCreateView(
@@ -37,11 +36,18 @@ class BeerListFragment : Fragment() {
             setBeerList(it)
         }
         beerViewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.swipeRefreshLayout.isRefreshing = it
+            binding.srlBeerList.isRefreshing = it
         }
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
+        binding.srlBeerList.setOnRefreshListener {
             beerViewModel.getBeerList()
+        }
+
+        beerViewModel.isError.observe(viewLifecycleOwner) {
+            binding.tvError.visibility = if (it) View.VISIBLE else View.INVISIBLE
+            if (it) {
+                binding.tvError.text = beerViewModel.errorMessage
+            }
         }
 
         return binding.root
@@ -49,15 +55,15 @@ class BeerListFragment : Fragment() {
 
     private fun setBeerList(beerListResponseItems: ArrayList<BeerListResponseItem>) {
         val beerListAdapter =
-            BeerListAdapter(requireActivity(), beerListResponseItems, object : BeerItemClick {
+            BeerListAdapter(beerListResponseItems, object : BeerItemClick {
                 override fun onBeerClick(beerListResponseItem: BeerListResponseItem) {
                     beerViewModel.selectedBeerId.value = beerListResponseItem.id
                     beerActivityAction?.moveToDetailsPage()
                 }
             })
-        binding.beerListRv.layoutManager =
+        binding.rvBeerList.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-        binding.beerListRv.adapter = beerListAdapter
+        binding.rvBeerList.adapter = beerListAdapter
     }
 
     override fun onAttach(context: Context) {
@@ -65,7 +71,10 @@ class BeerListFragment : Fragment() {
         if (context is BeerActivityAction) {
             beerActivityAction = context
         }
-        beerViewModel = ViewModelProvider(requireActivity(), BeerViewModelFactory(BeerRepository())).get(BeerViewModel::class.java)
+        beerViewModel =
+            ViewModelProvider(requireActivity(), BeerViewModelFactory(BeerRepository())).get(
+                BeerViewModel::class.java
+            )
         beerViewModel.getBeerList()
     }
 }

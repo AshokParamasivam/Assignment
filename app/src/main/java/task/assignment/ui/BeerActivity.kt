@@ -1,5 +1,6 @@
 package task.assignment.ui
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -24,10 +25,10 @@ class BeerActivity : AppCompatActivity(), BeerActivityAction,
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_beer)
 
-        setSupportActionBar(binding.toolBar)
-        binding.toolBar.subtitle = "BeerList"
+        setSupportActionBar(binding.tbActivityBeer)
+        binding.tbActivityBeer.subtitle = "BeerList"
 
-        supportFragmentManager.beginTransaction().add(R.id.content_layout, BeerListFragment())
+        supportFragmentManager.beginTransaction().add(R.id.fl_container, BeerListFragment())
             .commit()
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -44,15 +45,15 @@ class BeerActivity : AppCompatActivity(), BeerActivityAction,
 
     override fun moveToDetailsPage() {
         displayBackButton()
-        binding.toolBar.subtitle = "BeerDetails"
+        binding.tbActivityBeer.subtitle = "BeerDetails"
         val trans = supportFragmentManager.beginTransaction()
         trans.addToBackStack("BeerDetails")
-        trans.replace(R.id.content_layout, BeerDetailFragment())
+        trans.replace(R.id.fl_container, BeerDetailFragment())
             .commit()
     }
 
     private fun backToBeerListPage() {
-        binding.toolBar.subtitle = "BeerList"
+        binding.tbActivityBeer.subtitle = "BeerList"
         hideBackButton()
         supportFragmentManager.popBackStack()
     }
@@ -99,16 +100,9 @@ class BeerActivity : AppCompatActivity(), BeerActivityAction,
 
     override fun onDisconnected() {
         Log.d("network", " --- not connected")
-        showSnackBar("No network connection.")
-    }
-
-
-    private fun showSnackBar(message:String) {
         val snackBar = Snackbar
-            .make(binding.containerLayout, message, Snackbar.LENGTH_SHORT)
-            .setAction("OK") {
-
-            }
+            .make(binding.containerLayout, "Please check your network connection", Snackbar.LENGTH_SHORT)
         snackBar.show()
     }
+
 }

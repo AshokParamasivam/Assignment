@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="beerDetailsModel"
+            type="task.assignment.model.BeerListResponseItem" />
     </data>
 
     <FrameLayout
@@ -23,40 +25,46 @@
             android:layout_margin="5dp">
 
             <ImageView
-                android:id="@+id/beer_image"
+                android:id="@+id/iv_beer"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
-                app:layout_constraintEnd_toStartOf="@+id/beer_name_tv"
+                app:layout_constraintEnd_toStartOf="@+id/tv_beer_name"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:imageUrl="@{beerDetailsModel.imageUrl}"
+                android:padding="5dp"
+                tools:src="@drawable/beer_placeholder"
+                android:contentDescription="@string/beer_image"/>
 
             <TextView
-                android:id="@+id/beer_name_tv"
+                android:id="@+id/tv_beer_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@+id/beer_image"
+                app:layout_constraintStart_toEndOf="@+id/iv_beer"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Buzz" />
+                tools:text="Buzz"
+                android:text="@{beerDetailsModel.name}"/>
 
             <TextView
                 android:id="@+id/tag_line_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                app:layout_constraintEnd_toEndOf="@id/beer_name_tv"
-                app:layout_constraintStart_toStartOf="@id/beer_name_tv"
-                app:layout_constraintTop_toBottomOf="@id/beer_name_tv"
-                tools:text="A Real Bitter Experience." />
+                app:layout_constraintEnd_toEndOf="@id/tv_beer_name"
+                app:layout_constraintStart_toStartOf="@id/tv_beer_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_beer_name"
+                tools:text="A Real Bitter Experience."
+                android:text="@{beerDetailsModel.tagline}"/>
 
 
             <TextView
-                android:id="@+id/first_brew_date_title"
+                android:id="@+id/tv_first_brewed_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/first_brewed_date"
@@ -65,10 +73,10 @@
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/spacing_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/beer_image" />
+                app:layout_constraintTop_toBottomOf="@id/iv_beer" />
 
             <TextView
-                android:id="@+id/first_brew_date_tv"
+                android:id="@+id/tv_first_brewed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_paragraph"
@@ -76,11 +84,12 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_60"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/first_brew_date_title" />
+                android:text="@{beerDetailsModel.firstBrewed}"
+                app:layout_constraintTop_toBottomOf="@id/tv_first_brewed_title" />
 
 
             <TextView
-                android:id="@+id/description_title"
+                android:id="@+id/tv_description_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
@@ -89,21 +98,22 @@
                 android:textColor="@color/colorBlue"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/first_brew_date_tv" />
+                app:layout_constraintTop_toBottomOf="@id/tv_first_brewed" />
 
             <TextView
-                android:id="@+id/description_tv"
+                android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_paragraph"
                 android:lineSpacingExtra="2dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_60"
+                android:text="@{beerDetailsModel.description}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_description_title" />
 
             <TextView
-                android:id="@+id/food_pair_title"
+                android:id="@+id/tv_food_pair_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/food_pair"
@@ -112,10 +122,10 @@
                 android:textColor="@color/colorBlue"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description_tv" />
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
             <TextView
-                android:id="@+id/food_pair_tv"
+                android:id="@+id/tv_food_pair"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_paragraph"
@@ -123,10 +133,10 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_60"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/food_pair_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_food_pair_title" />
 
             <TextView
-                android:id="@+id/brewer_tip_title"
+                android:id="@+id/tv_brewer_tip_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/brewers_tip"
@@ -135,18 +145,47 @@
                 android:textColor="@color/colorBlue"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/food_pair_tv" />
+                app:layout_constraintTop_toBottomOf="@id/tv_food_pair" />
 
             <TextView
-                android:id="@+id/brewer_tip_tv"
+                android:id="@+id/tv_brewer_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_paragraph"
                 android:lineSpacingExtra="2dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_60"
+                android:text="@{beerDetailsModel.brewersTips}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/brewer_tip_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_brewer_tip_title" />
+
+            <TextView
+                android:id="@+id/tv_contribute_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contribute_by"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorBlue"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_brewer_tip" />
+
+            <TextView
+                android:id="@+id/tv_contribute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_paragraph"
+                android:lineSpacingExtra="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/grey_60"
+                android:text="@{beerDetailsModel.contributedBy}"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textStyle="italic"
+                app:layout_constraintTop_toBottomOf="@id/tv_contribute_title" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -169,6 +208,17 @@
                 android:layout_gravity="center" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Error: error message"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/error_msg_tv"
+            android:layout_marginHorizontal="10dp"/>
 
     </FrameLayout>
 </layout>

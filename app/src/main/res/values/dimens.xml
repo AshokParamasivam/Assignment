@@ -2,4 +2,6 @@
     <dimen name="spacing_middle">10dp</dimen>
     <dimen name="spacing_title">15dp</dimen>
     <dimen name="spacing_paragraph">5dp</dimen>
+
+    <dimen name="spacing_large">25dp</dimen>
 </resources>

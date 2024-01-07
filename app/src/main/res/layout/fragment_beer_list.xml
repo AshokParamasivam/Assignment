@@ -13,18 +13,29 @@
 
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout"
+            android:id="@+id/srl_beer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/beer_list_rv"
+                android:id="@+id/rv_beer_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            tools:text="Error: error message"
+            tools:visibility="visible" />
 
     </FrameLayout>
 </layout>

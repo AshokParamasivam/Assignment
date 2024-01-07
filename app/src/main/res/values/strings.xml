@@ -4,4 +4,6 @@
     <string name="description">Description</string>
     <string name="food_pair">Food Pair</string>
     <string name="brewers_tip">Brewers Tip</string>
+    <string name="beer_image">Beer Image</string>
+    <string name="contribute_by">Contribute by</string>
 </resources>
