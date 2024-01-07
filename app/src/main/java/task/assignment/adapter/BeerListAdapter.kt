@@ -10,13 +10,13 @@ import task.assignment.interfaces.BeerItemClick
 import task.assignment.model.BeerListResponseItem
 
 class BeerListAdapter(
-    var galleryItems: ArrayList<BeerListResponseItem>,
+    var beerListItems: ArrayList<BeerListResponseItem>,
     val onItemCLick: BeerItemClick
 ) :
-    RecyclerView.Adapter<BeerListAdapter.GalleryViewHolder>() {
+    RecyclerView.Adapter<BeerListAdapter.BeerListViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
-        return GalleryViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerListViewHolder {
+        return BeerListViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context), R.layout.beer_list_item, parent, false
             ), onItemCLick
@@ -24,15 +24,15 @@ class BeerListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return galleryItems.size
+        return beerListItems.size
     }
 
-    override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-        val model = galleryItems[position]
+    override fun onBindViewHolder(holder: BeerListViewHolder, position: Int) {
+        val model = beerListItems[position]
         holder.bindData(model)
     }
 
-    class GalleryViewHolder(
+    class BeerListViewHolder(
         val binding: BeerListItemBinding,
         val onItemCLick: BeerItemClick
     ) :

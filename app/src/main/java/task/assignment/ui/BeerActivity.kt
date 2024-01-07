@@ -95,11 +95,11 @@ class BeerActivity : AppCompatActivity(), BeerActivityAction,
     }
 
     override fun onConnected() {
-        Log.d("network", " --- connected")
+        Log.d("network", "connected")
     }
 
     override fun onDisconnected() {
-        Log.d("network", " --- not connected")
+        Log.d("network", "not connected")
         val snackBar = Snackbar
             .make(binding.containerLayout, "Please check your network connection", Snackbar.LENGTH_SHORT)
         snackBar.show()

@@ -1,6 +1,5 @@
 package task.assignment.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,32 +23,30 @@ class BeerViewModel(private val beerRepository: BeerRepository) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    private val _isError = MutableLiveData<Boolean>()
-    val isError: LiveData<Boolean> get() = _isError
+    val isError = MutableLiveData<Boolean>()
 
     var selectedBeerId = MutableLiveData(1)
 
     var errorMessage: String = ""
 
-    var getBeerListJob: Job? = null
-    var getBeerDetailsJob: Job? = null
+    private var getBeerListJob: Job? = null
+    private var getBeerDetailsJob: Job? = null
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        Log.e("Exception", "--- " + exception.message)
-        onError("Error : ${exception.message} ")
+        onError("${exception.message} ")
     }
 
     fun getBeerList() {
 
         _isLoading.value = true
-        _isError.value = false
+        isError.value = false
 
         getBeerListJob = viewModelScope.launch(exceptionHandler) {
             val response = beerRepository.getBeerList()
             withContext(Dispatchers.Main) {
                 _isLoading.value = false
                 if (!response.isSuccessful) {
-                    onError("Error : ${response.message()} ")
+                    onError("${response.message()} ")
                 } else {
                     val responseBody = response.body()
                     _beerListData.postValue(responseBody)
@@ -61,7 +58,7 @@ class BeerViewModel(private val beerRepository: BeerRepository) : ViewModel() {
 
     fun getBeerDetails() {
         _isLoading.value = true
-        _isError.value = false
+        isError.value = false
 
         if (selectedBeerId.value != null) {
             getBeerDetailsJob = viewModelScope.launch (exceptionHandler){
@@ -70,7 +67,7 @@ class BeerViewModel(private val beerRepository: BeerRepository) : ViewModel() {
                 withContext(Dispatchers.Main) {
                     _isLoading.value = false
                     if (!response.isSuccessful || responseBody == null) {
-                        onError("Error : ${response.message()} ")
+                        onError("${response.message()} ")
                     } else {
                         _beerDetails.postValue(responseBody.first())
                     }
@@ -88,7 +85,7 @@ class BeerViewModel(private val beerRepository: BeerRepository) : ViewModel() {
 
         errorMessage = StringBuilder("ERROR: ").append("$message").toString()
 
-        _isError.value = true
+        isError.value = true
         _isLoading.value = false
     }
 

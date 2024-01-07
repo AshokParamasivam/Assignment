@@ -44,7 +44,7 @@ class BeerListFragment : Fragment() {
         }
 
         beerViewModel.isError.observe(viewLifecycleOwner) {
-            binding.tvError.visibility = if (it) View.VISIBLE else View.INVISIBLE
+            binding.tvError.visibility = if (it) View.VISIBLE else View.GONE
             if (it) {
                 binding.tvError.text = beerViewModel.errorMessage
             }
@@ -54,16 +54,16 @@ class BeerListFragment : Fragment() {
     }
 
     private fun setBeerList(beerListResponseItems: ArrayList<BeerListResponseItem>) {
-        val beerListAdapter =
-            BeerListAdapter(beerListResponseItems, object : BeerItemClick {
-                override fun onBeerClick(beerListResponseItem: BeerListResponseItem) {
-                    beerViewModel.selectedBeerId.value = beerListResponseItem.id
-                    beerActivityAction?.moveToDetailsPage()
-                }
-            })
-        binding.rvBeerList.layoutManager =
-            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-        binding.rvBeerList.adapter = beerListAdapter
+           val beerListAdapter =
+                BeerListAdapter(beerListResponseItems, object : BeerItemClick {
+                    override fun onBeerClick(beerListResponseItem: BeerListResponseItem) {
+                        beerViewModel.selectedBeerId.value = beerListResponseItem.id
+                        beerActivityAction?.moveToDetailsPage()
+                    }
+                })
+            binding.rvBeerList.layoutManager =
+                LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            binding.rvBeerList.adapter = beerListAdapter
     }
 
     override fun onAttach(context: Context) {

@@ -9,14 +9,16 @@
             type="task.assignment.model.BeerListResponseItem" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.BeerDetailFragment">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_error">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -217,8 +219,10 @@
             android:layout_marginBottom="10dp"
             android:visibility="gone"
             tools:visibility="visible"
-            android:id="@+id/error_msg_tv"
+            android:id="@+id/tv_error"
+            android:textColor="@color/err_color"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginHorizontal="10dp"/>
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
